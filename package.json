@@ -4,7 +4,7 @@
   "description": "CloudPrint Pro - 3D Printing Marketplace Backend",
   "main": "dist/main.js",
   "scripts": {
-    "prebuild": "if exist dist rmdir /s /q dist",
+    "prebuild": "rm -rf dist || true",
     "build": "nest build",
     "start": "nest start",
     "start:dev": "nest start --watch",
@@ -20,7 +20,6 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "prebuild": "rm -rf dist",
   "dependencies": {
     "@nestjs/common": "^11.1.11",
     "@nestjs/config": "^4.0.2",
