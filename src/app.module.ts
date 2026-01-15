@@ -28,7 +28,7 @@ import { AdminModule } from './modules/admin/admin.module';
         type: 'sqlite',
         database: configService.get<string>('DB_NAME') || 'data/cloudprint.db',
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: configService.get<string>('NODE_ENV') !== 'production',
+        synchronize: true, // Auto-create tables - set to false only when using migrations
         logging: configService.get<string>('NODE_ENV') === 'development',
       }),
       inject: [ConfigService],
