@@ -16,7 +16,12 @@
     "test:cov": "jest --coverage",
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
-  "keywords": ["3d-printing", "marketplace", "nestjs", "typescript"],
+  "keywords": [
+    "3d-printing",
+    "marketplace",
+    "nestjs",
+    "typescript"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
@@ -37,6 +42,7 @@
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",
+    "pg": "^8.17.1",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
     "sqlite3": "^5.1.7",
@@ -55,9 +61,9 @@
     "@types/passport-jwt": "^4.0.1",
     "@types/passport-local": "^1.0.38",
     "@types/uuid": "^10.0.0",
+    "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.9.3",
-    "rimraf": "^5.0.5"
+    "typescript": "^5.9.3"
   }
 }

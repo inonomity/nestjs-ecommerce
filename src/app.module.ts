@@ -21,16 +21,34 @@ import { AdminModule } from './modules/admin/admin.module';
       envFilePath: '.env',
     }),
 
-    // Database
+    // Database - PostgreSQL for production, SQLite for local development
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
-      useFactory: (configService: ConfigService) => ({
-        type: 'sqlite',
-        database: configService.get<string>('DB_NAME') || 'data/cloudprint.db',
-        entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: true, // Auto-create tables - set to false only when using migrations
-        logging: configService.get<string>('NODE_ENV') === 'development',
-      }),
+      useFactory: (configService: ConfigService) => {
+        const isProduction = configService.get<string>('NODE_ENV') === 'production';
+        const databaseUrl = configService.get<string>('DATABASE_URL');
+        
+        // Use PostgreSQL if DATABASE_URL is provided (production)
+        if (databaseUrl) {
+          return {
+            type: 'postgres',
+            url: databaseUrl,
+            entities: [__dirname + '/**/*.entity{.ts,.js}'],
+            synchronize: true, // Auto-create tables
+            ssl: isProduction ? { rejectUnauthorized: false } : false,
+            logging: !isProduction,
+          };
+        }
+        
+        // Use SQLite for local development
+        return {
+          type: 'sqlite',
+          database: configService.get<string>('DB_NAME') || 'data/cloudprint.db',
+          entities: [__dirname + '/**/*.entity{.ts,.js}'],
+          synchronize: true,
+          logging: true,
+        };
+      },
       inject: [ConfigService],
     }),
 
